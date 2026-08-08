@@ -120,13 +120,38 @@
         display: block;
         overflow: auto;
         background:
-          linear-gradient(rgba(87,232,255,.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(87,232,255,.035) 1px, transparent 1px),
-          radial-gradient(circle at 12% 8%, rgba(87,232,255,.13), transparent 30%),
-          radial-gradient(circle at 91% 88%, rgba(156,69,255,.24), transparent 34%),
-          #080d19;
-        background-size: 36px 36px, 36px 36px, auto, auto, auto;
+          radial-gradient(circle at 88% 5%, rgba(207,91,255,.86), transparent 28%),
+          radial-gradient(circle at 8% 94%, rgba(47,0,139,.72), transparent 32%),
+          linear-gradient(145deg, #5d00b6 0%, #7a16dc 48%, #341078 100%);
         animation: ub-room-in .65s ease both;
+      }
+
+      .ub-room::before,
+      .ub-room::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        pointer-events: none;
+        opacity: .33;
+      }
+
+      .ub-room::before {
+        width: min(48vw, 690px);
+        height: min(48vw, 690px);
+        top: -17vw;
+        left: -9vw;
+        border-radius: 33% 67% 42% 58%;
+        background: #23005f;
+        transform: rotate(28deg);
+      }
+
+      .ub-room::after {
+        width: min(43vw, 620px);
+        height: min(43vw, 620px);
+        right: -12vw;
+        bottom: -19vw;
+        border-radius: 50%;
+        background: #b62eff;
       }
 
       @keyframes ub-room-in {
@@ -134,7 +159,9 @@
       }
 
       .ub-shell {
-        width: min(1180px, calc(100% - 40px));
+        position: relative;
+        z-index: 1;
+        width: min(1280px, calc(100% - 40px));
         min-height: 100%;
         margin: 0 auto;
       }
@@ -145,180 +172,228 @@
         justify-content: space-between;
         gap: 16px;
         padding: max(23px, env(safe-area-inset-top)) 0 21px;
-        border-bottom: 1px solid rgba(87,232,255,.19);
+        border-bottom: 1px solid rgba(255,255,255,.24);
       }
 
       .ub-classified {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        color: var(--ub-cyan);
-        font-family: Consolas, monospace;
-        font-size: .75rem;
-        font-weight: 800;
-        letter-spacing: .14em;
+        color: #fff;
+        font-family: "Arial Black", Montserrat, sans-serif;
+        font-size: 1.35rem;
+        font-weight: 900;
+        letter-spacing: -.06em;
       }
 
       .ub-classified::before {
-        content: "";
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--ub-green);
-        box-shadow: 0 0 16px var(--ub-green);
-        animation: ub-blink 1.3s steps(2) infinite;
+        content: "◆";
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: .84rem;
+        border-radius: 7px;
+        background: #e21b3c;
+        box-shadow: 0 4px 0 #b1132d;
+        animation: none;
       }
 
       @keyframes ub-blink { 50% { opacity: .25; } }
 
       .ub-room-id {
-        color: rgba(255,255,255,.5);
-        font-family: Consolas, monospace;
+        padding: 8px 12px;
+        color: #3b1769;
         font-size: .72rem;
+        font-weight: 900;
+        letter-spacing: .05em;
+        border-radius: 999px;
+        background: #fff;
       }
 
       .ub-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
-        align-items: center;
-        gap: clamp(36px, 7vw, 90px);
+        display: block;
         min-height: calc(100vh - 91px);
         min-height: calc(100svh - 91px);
-        padding: 50px 0;
+        padding: 32px 0 48px;
       }
 
+      .ub-portal-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .ub-portal-copy { min-width: 0; }
+
       .ub-access {
-        display: inline-flex;
-        margin-bottom: 19px;
-        padding: 8px 12px;
-        color: #05190f;
-        font-size: .72rem;
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 7px 11px;
+        color: #32106f;
+        font-size: .7rem;
         font-weight: 900;
         letter-spacing: .12em;
         border-radius: 99px;
-        background: var(--ub-green);
-        box-shadow: 0 0 30px rgba(74,227,138,.22);
+        background: #fff;
+        box-shadow: 0 5px 18px rgba(40,0,83,.18);
       }
 
       .ub-title {
-        max-width: 720px;
         margin: 0;
-        font-size: clamp(3.8rem, 9vw, 8.2rem);
-        line-height: .82;
-        letter-spacing: -.075em;
-        text-transform: uppercase;
-      }
-
-      .ub-title span {
-        display: block;
-        color: transparent;
-        -webkit-text-stroke: 1px rgba(255,255,255,.76);
+        font-size: clamp(2.15rem, 5vw, 4.2rem);
+        line-height: .95;
+        letter-spacing: -.055em;
       }
 
       .ub-copy {
-        max-width: 590px;
-        margin: 29px 0 34px;
-        color: rgba(255,255,255,.66);
-        font-size: clamp(1rem, 2vw, 1.16rem);
-        line-height: 1.7;
+        margin: 10px 0 0;
+        color: rgba(255,255,255,.78);
+        font-size: .95rem;
+        line-height: 1.5;
       }
 
       .ub-return {
+        flex: 0 0 auto;
         min-height: 46px;
         padding: 0 18px;
         color: #fff;
-        font-weight: 800;
-        border: 1px solid rgba(255,255,255,.26);
+        font-weight: 900;
+        border: 2px solid rgba(255,255,255,.7);
         border-radius: 7px;
-        background: rgba(255,255,255,.06);
+        background: rgba(50,16,111,.42);
         cursor: pointer;
       }
 
       .ub-return:hover {
-        border-color: var(--ub-cyan);
-        background: rgba(87,232,255,.08);
+        background: #32106f;
       }
 
-      .ub-mission {
-        position: relative;
-        padding: clamp(25px, 4vw, 38px);
+      .ub-browser {
         overflow: hidden;
-        border: 1px solid rgba(87,232,255,.25);
-        border-radius: 16px;
-        background: linear-gradient(145deg, rgba(18,30,51,.94), rgba(8,14,27,.97));
-        box-shadow: 0 30px 90px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.05);
+        border: 5px solid #fff;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(35,0,76,.32);
       }
 
-      .ub-mission::after {
-        content: "22189";
-        position: absolute;
-        right: -15px;
-        bottom: -30px;
-        color: rgba(87,232,255,.035);
-        font-size: 8rem;
-        font-weight: 900;
-        letter-spacing: -.08em;
-        pointer-events: none;
-      }
-
-      .ub-mission-label {
-        margin: 0 0 10px;
-        color: var(--ub-gold);
-        font-family: Consolas, monospace;
-        font-size: .72rem;
-        font-weight: 800;
-        letter-spacing: .14em;
-      }
-
-      .ub-mission h2 { margin: 0; font-size: 1.7rem; }
-
-      .ub-redacted {
+      .ub-browser-top {
         display: grid;
-        gap: 11px;
-        margin: 30px 0;
+        grid-template-columns: auto auto minmax(180px, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        background: #32106f;
       }
 
-      .ub-redacted span {
-        display: block;
-        height: 11px;
-        border-radius: 2px;
-        background: rgba(255,255,255,.14);
-      }
+      .ub-dots { display: flex; gap: 6px; }
+      .ub-dots i { width: 11px; height: 11px; border-radius: 50%; }
+      .ub-dots i:nth-child(1) { background: #e21b3c; }
+      .ub-dots i:nth-child(2) { background: #ffa602; }
+      .ub-dots i:nth-child(3) { background: #26890c; }
 
-      .ub-redacted span:nth-child(1) { width: 92%; }
-      .ub-redacted span:nth-child(2) { width: 76%; }
-      .ub-redacted span:nth-child(3) { width: 84%; }
+      .ub-browser-controls { display: flex; gap: 5px; }
 
-      .ub-reveal {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        min-height: 50px;
-        color: #07151a;
+      .ub-browser-button {
+        display: grid;
+        place-items: center;
+        min-width: 34px;
+        height: 34px;
+        padding: 0 8px;
+        color: #fff;
         font-weight: 900;
         border: 0;
-        border-radius: 7px;
-        background: var(--ub-cyan);
-        box-shadow: 0 8px 26px rgba(87,232,255,.18);
+        border-radius: 5px;
+        background: rgba(255,255,255,.13);
         cursor: pointer;
       }
 
-      .ub-message {
-        display: none;
-        position: relative;
-        z-index: 1;
-        margin: 26px 0 0;
-        padding: 18px;
-        color: #dffbff;
-        font-family: Consolas, monospace;
-        font-size: .9rem;
-        line-height: 1.7;
-        border-left: 3px solid var(--ub-cyan);
-        background: rgba(87,232,255,.07);
+      .ub-browser-button:hover { background: rgba(255,255,255,.24); }
+      .ub-browser-button:disabled { opacity: .42; cursor: not-allowed; }
+
+      .ub-address-form {
+        display: flex;
+        min-width: 0;
+        height: 38px;
+        overflow: hidden;
+        border: 2px solid transparent;
+        border-radius: 7px;
+        background: #fff;
       }
 
-      .ub-message.ub-show { display: block; animation: ub-reveal .5s ease both; }
-      @keyframes ub-reveal { from { opacity: 0; transform: translateY(8px); } }
+      .ub-address-form:focus-within { border-color: #45d3ff; }
+
+      .ub-address {
+        min-width: 0;
+        flex: 1;
+        padding: 0 12px;
+        color: #292929;
+        border: 0;
+        outline: 0;
+      }
+
+      .ub-go {
+        min-width: 66px;
+        color: #fff;
+        font-weight: 900;
+        border: 0;
+        background: #26890c;
+        cursor: pointer;
+      }
+
+      .ub-open-new {
+        min-height: 38px;
+        padding: 0 12px;
+        color: #32106f;
+        font-weight: 900;
+        border: 0;
+        border-radius: 7px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .ub-browser-note {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 44px;
+        padding: 8px 13px;
+        color: #5f5f5f;
+        font-size: .76rem;
+        font-weight: 700;
+        border-bottom: 1px solid #e4e4e4;
+        background: #f7f7f7;
+      }
+
+      .ub-quick-links { display: flex; gap: 6px; flex-wrap: wrap; }
+
+      .ub-quick-link {
+        min-height: 28px;
+        padding: 0 10px;
+        color: #fff;
+        font-size: .7rem;
+        font-weight: 900;
+        border: 0;
+        border-radius: 4px;
+        background: #1368ce;
+        cursor: pointer;
+      }
+
+      .ub-quick-link:nth-child(2) { background: #e21b3c; }
+      .ub-quick-link:nth-child(3) { background: #d89e00; }
+
+      .ub-frame {
+        display: block;
+        width: 100%;
+        height: clamp(430px, 63vh, 720px);
+        border: 0;
+        background: #f4f1fa;
+      }
 
       .ub-confetti {
         position: fixed;
@@ -336,10 +411,19 @@
       }
 
       @media (max-width: 760px) {
-        .ub-grid { grid-template-columns: 1fr; padding-top: 42px; }
-        .ub-title { font-size: clamp(3.45rem, 20vw, 6rem); }
+        .ub-shell { width: min(100% - 22px, 1280px); }
+        .ub-grid { padding-top: 24px; }
+        .ub-portal-head { align-items: start; }
+        .ub-title { font-size: clamp(2rem, 10vw, 3rem); }
         .ub-room-id { display: none; }
-        .ub-mission { margin-bottom: 30px; }
+        .ub-browser-top { grid-template-columns: auto 1fr auto; }
+        .ub-dots { display: none; }
+        .ub-browser-controls { grid-column: 1; }
+        .ub-address-form { grid-column: 2; }
+        .ub-open-new { grid-column: 3; font-size: 0; min-width: 42px; padding: 0; }
+        .ub-open-new::after { content: "↗"; font-size: 1rem; }
+        .ub-browser-note { align-items: flex-start; flex-direction: column; }
+        .ub-frame { height: 58vh; min-height: 420px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -367,24 +451,48 @@
 
     <section class="ub-room" id="ubRoom" aria-labelledby="ubRoomTitle" hidden>
       <div class="ub-shell">
-        <nav class="ub-nav" aria-label="Secret room navigation">
-          <span class="ub-classified">TOP SECRET // CHANNEL OPEN</span>
-          <span class="ub-room-id">ROOM ID: UB-22189 · ENCRYPTION: ACTIVE</span>
+        <nav class="ub-nav" aria-label="Kahoot web portal navigation">
+          <span class="ub-classified">Kahoot! Web</span>
+          <span class="ub-room-id">SECRET PIN UNLOCKED · UB-22189</span>
         </nav>
         <div class="ub-grid">
-          <div>
-            <span class="ub-access">✓ ACCESS GRANTED</span>
-            <h1 class="ub-title" id="ubRoomTitle">You found <span>the secret.</span></h1>
-            <p class="ub-copy">Welcome, Agent. Very few people know this room exists. Your access key opened the hidden Underground channel.</p>
+          <div class="ub-portal-head">
+            <div class="ub-portal-copy">
+              <span class="ub-access">✓ SECRET MODE</span>
+              <h1 class="ub-title" id="ubRoomTitle">Where should we go?</h1>
+              <p class="ub-copy">Search the web or enter an address in your hidden Kahoot portal.</p>
+            </div>
             <button class="ub-return" id="ubReturn" type="button">← Return to Kahoot</button>
           </div>
-          <article class="ub-mission">
-            <p class="ub-mission-label">CLASSIFIED // MISSION 22189</p>
-            <h2>Your secret transmission</h2>
-            <div class="ub-redacted" id="ubRedacted" aria-hidden="true"><span></span><span></span><span></span></div>
-            <button class="ub-reveal" id="ubReveal" type="button">Decrypt message</button>
-            <p class="ub-message" id="ubMessage">TRANSMISSION DECRYPTED:<br><br>You discovered the hidden room. Keep the access code safe—and share it only with someone worthy of the Underground.</p>
-          </article>
+
+          <section class="ub-browser" aria-label="Web portal">
+            <div class="ub-browser-top">
+              <div class="ub-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="ub-browser-controls">
+                <button class="ub-browser-button" id="ubBack" type="button" aria-label="Back" title="Back">←</button>
+                <button class="ub-browser-button" id="ubForward" type="button" aria-label="Forward" title="Forward">→</button>
+                <button class="ub-browser-button" id="ubReload" type="button" aria-label="Reload" title="Reload">↻</button>
+                <button class="ub-browser-button" id="ubHome" type="button" aria-label="Home" title="Home">⌂</button>
+              </div>
+              <form class="ub-address-form" id="ubBrowserForm">
+                <label for="ubAddress" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search or enter website</label>
+                <input class="ub-address" id="ubAddress" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search or enter a website" />
+                <button class="ub-go" type="submit">Go</button>
+              </form>
+              <button class="ub-open-new" id="ubOpenNew" type="button" title="Open in a new tab">Open new tab ↗</button>
+            </div>
+
+            <div class="ub-browser-note">
+              <span id="ubBrowserNotice">Some websites block embedded viewing. Use “Open new tab” when that happens.</span>
+              <div class="ub-quick-links" aria-label="Quick links">
+                <button class="ub-quick-link" type="button" data-ub-url="https://www.wikipedia.org/">Wikipedia</button>
+                <button class="ub-quick-link" type="button" data-ub-url="https://kahoot.com/">Kahoot</button>
+                <button class="ub-quick-link" type="button" data-ub-url="https://archive.org/">Archive</button>
+              </div>
+            </div>
+
+            <iframe class="ub-frame" id="ubFrame" title="Web content" sandbox="allow-forms allow-scripts allow-popups" referrerpolicy="no-referrer"></iframe>
+          </section>
         </div>
       </div>
     </section>
@@ -402,15 +510,33 @@
         const detail = document.getElementById("ubDetail");
         const progress = document.getElementById("ubProgress");
         const returnButton = document.getElementById("ubReturn");
-        const revealButton = document.getElementById("ubReveal");
-        const message = document.getElementById("ubMessage");
-        const redacted = document.getElementById("ubRedacted");
+        const browserForm = document.getElementById("ubBrowserForm");
+        const addressInput = document.getElementById("ubAddress");
+        const webFrame = document.getElementById("ubFrame");
+        const browserNotice = document.getElementById("ubBrowserNotice");
+        const backButton = document.getElementById("ubBack");
+        const forwardButton = document.getElementById("ubForward");
+        const reloadButton = document.getElementById("ubReload");
+        const homeButton = document.getElementById("ubHome");
+        const openNewButton = document.getElementById("ubOpenNew");
         let typedBuffer = "";
         let connecting = false;
+        let portalHistory = [];
+        let portalIndex = -1;
 
         const normalize = value => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
         const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
         const isPinInput = element => element instanceof HTMLInputElement && Boolean(element.closest("main"));
+
+        const PORTAL_HOME = `<!doctype html>
+          <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+          <style>
+            *{box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-items:center;padding:28px;color:#32106f;font-family:Arial,sans-serif;background:#f4f1fa}
+            main{width:min(760px,100%);text-align:center} h1{margin:0 0 8px;font-size:clamp(2rem,7vw,4rem);letter-spacing:-.06em} p{margin:0 auto 28px;color:#6b5a83;line-height:1.55}
+            .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.answer{min-height:110px;display:grid;place-items:center;padding:18px;color:white;font-weight:900;border-radius:8px;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+            .answer:nth-child(1){background:#e21b3c}.answer:nth-child(2){background:#1368ce}.answer:nth-child(3){background:#d89e00}.answer:nth-child(4){background:#26890c}
+            @media(max-width:520px){.answers{grid-template-columns:1fr}.answer{min-height:72px}}
+          </style></head><body><main><h1>Kahoot! Web</h1><p>Type a website or search in the bar above. This is an embedded web portal—not a network proxy.</p><div class="answers"><div class="answer">◆ Explore</div><div class="answer">● Learn</div><div class="answer">▲ Discover</div><div class="answer">■ Play</div></div></main></body></html>`;
 
         function preparePinInput() {
           const pinInput = document.querySelector("main input");
@@ -421,6 +547,70 @@
           pinInput.removeAttribute("pattern");
           pinInput.autocapitalize = "off";
           pinInput.spellcheck = false;
+        }
+
+        function resolvePortalTarget(rawValue) {
+          const value = String(rawValue || "").trim();
+          if (!value) return null;
+
+          let candidate;
+          if (/^https?:\/\//i.test(value)) candidate = value;
+          else if (!/\s/.test(value) && /^[a-z0-9.-]+\.[a-z]{2,}(?:[/:?#].*)?$/i.test(value)) candidate = `https://${value}`;
+          else candidate = `https://www.google.com/search?igu=1&q=${encodeURIComponent(value)}`;
+
+          try {
+            const url = new URL(candidate);
+            if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+            return url.href;
+          } catch {
+            return null;
+          }
+        }
+
+        function updatePortalControls() {
+          backButton.disabled = portalIndex <= 0;
+          forwardButton.disabled = portalIndex < 0 || portalIndex >= portalHistory.length - 1;
+        }
+
+        function rememberPortalPage(page) {
+          portalHistory = portalHistory.slice(0, portalIndex + 1);
+          portalHistory.push(page);
+          portalIndex = portalHistory.length - 1;
+          updatePortalControls();
+        }
+
+        function renderPortalPage(page) {
+          if (!page || page.kind === "home") {
+            webFrame.removeAttribute("src");
+            webFrame.srcdoc = PORTAL_HOME;
+            addressInput.value = "";
+            browserNotice.textContent = "Search or enter a website. Some sites require the Open new tab button.";
+          } else {
+            webFrame.removeAttribute("srcdoc");
+            webFrame.src = page.url;
+            addressInput.value = page.url;
+            browserNotice.textContent = "Loading embedded view… If it stays blank, the website blocks frames—open it in a new tab.";
+          }
+          updatePortalControls();
+        }
+
+        function showPortalHome(remember = true) {
+          const page = { kind: "home" };
+          if (remember) rememberPortalPage(page);
+          renderPortalPage(page);
+        }
+
+        function navigatePortal(rawValue, remember = true) {
+          const target = resolvePortalTarget(rawValue);
+          if (!target) {
+            browserNotice.textContent = "Please enter a normal website address or search phrase.";
+            addressInput.focus();
+            return;
+          }
+
+          const page = { kind: "url", url: target };
+          if (remember) rememberPortalPage(page);
+          renderPortalPage(page);
         }
 
         function launchConfetti() {
@@ -464,8 +654,10 @@
           room.hidden = false;
           document.title = "Secret Room · UB-22189";
           connecting = false;
+          if (portalHistory.length === 0) showPortalHome();
+          else renderPortalPage(portalHistory[portalIndex]);
           launchConfetti();
-          returnButton.focus();
+          addressInput.focus();
         }
 
         function submittedSecret(input) {
@@ -510,10 +702,6 @@
           root.style.display = "";
           typedBuffer = "";
           progress.style.width = "10%";
-          message.classList.remove("ub-show");
-          redacted.hidden = false;
-          revealButton.textContent = "Decrypt message";
-          revealButton.disabled = false;
           document.title = "Enter Game PIN - Kahoot!";
           const pinInput = document.querySelector("main input");
           if (pinInput) {
@@ -522,11 +710,44 @@
           }
         });
 
-        revealButton.addEventListener("click", () => {
-          message.classList.add("ub-show");
-          redacted.hidden = true;
-          revealButton.textContent = "Message decrypted ✓";
-          revealButton.disabled = true;
+        browserForm.addEventListener("submit", event => {
+          event.preventDefault();
+          navigatePortal(addressInput.value);
+        });
+
+        backButton.addEventListener("click", () => {
+          if (portalIndex <= 0) return;
+          portalIndex -= 1;
+          renderPortalPage(portalHistory[portalIndex]);
+        });
+
+        forwardButton.addEventListener("click", () => {
+          if (portalIndex >= portalHistory.length - 1) return;
+          portalIndex += 1;
+          renderPortalPage(portalHistory[portalIndex]);
+        });
+
+        reloadButton.addEventListener("click", () => {
+          const page = portalHistory[portalIndex];
+          renderPortalPage(page || { kind: "home" });
+        });
+
+        homeButton.addEventListener("click", () => showPortalHome());
+
+        openNewButton.addEventListener("click", () => {
+          const currentPage = portalHistory[portalIndex];
+          const target = resolvePortalTarget(addressInput.value) || (currentPage && currentPage.url);
+          if (!target) {
+            browserNotice.textContent = "Enter a website or search first, then choose Open new tab.";
+            addressInput.focus();
+            return;
+          }
+          const opened = window.open(target, "_blank", "noopener,noreferrer");
+          if (opened) opened.opener = null;
+        });
+
+        document.querySelectorAll("[data-ub-url]").forEach(button => {
+          button.addEventListener("click", () => navigatePortal(button.dataset.ubUrl));
         });
 
         new MutationObserver(preparePinInput).observe(root, { childList: true, subtree: true });

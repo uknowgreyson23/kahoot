@@ -1,6 +1,6 @@
-# Kahoot Secret Room
+# Kahoot Secret Web Portal
 
-This package uses the original downloaded frontend files and adds the hidden `ub 22189` behavior through `index.html`.
+This package uses the original downloaded frontend files and adds a hidden Kahoot-styled web portal through `index.html`.
 
 ## Required structure
 
@@ -21,9 +21,15 @@ Enter `ub 22189` in the Game PIN field. It will show:
 
 1. Loading
 2. Connecting
-3. The hidden Secret Room
+3. The hidden Kahoot Web portal
 
 Other PINs continue through the original Kahoot frontend.
+
+## Web portal behavior
+
+The portal includes an address/search bar, back, forward, reload, home, quick links, an embedded viewer, and an **Open new tab** fallback.
+
+This is a static web portal, not a network proxy. GitHub Pages cannot relay traffic or bypass network restrictions. Websites may also block iframe embedding; use **Open new tab** for those sites.
 
 ## Publish with GitHub Pages
 
