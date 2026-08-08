@@ -11,6 +11,7 @@ index.html
 controller/
 googledatamanager/
 shared-assets/
+login-info/
 messaging/
 games/
 ```
@@ -26,6 +27,15 @@ Enter `ub 22189` in the Game PIN field. It will show:
 3. The hidden Kahoot Web portal
 
 Other PINs continue through the original Kahoot frontend.
+
+## Login and sign up
+
+After the secret code, visitors can create a username/password account or log in to an existing account on that browser.
+
+- Accounts are device-local and do not synchronize between devices.
+- Passwords are salted and hashed with PBKDF2/SHA-256 before being saved.
+- Readable passwords are never stored or sent over the network.
+- The login session lasts for the current browser tab and includes a **Log out** button.
 
 ## Web portal behavior
 

@@ -213,6 +213,144 @@
         background: #fff;
       }
 
+      .ub-nav-actions { display: flex; align-items: center; gap: 8px; }
+
+      .ub-user-badge {
+        padding: 8px 11px;
+        color: #fff;
+        font-size: .72rem;
+        font-weight: 900;
+        border-radius: 999px;
+        background: rgba(50,16,111,.5);
+        border: 1px solid rgba(255,255,255,.45);
+      }
+
+      .ub-logout {
+        min-height: 34px;
+        padding: 0 11px;
+        color: #32106f;
+        font-size: .72rem;
+        font-weight: 900;
+        border: 0;
+        border-radius: 999px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .ub-user-badge[hidden], .ub-logout[hidden], .ub-auth-view[hidden], .ub-grid[hidden] { display: none !important; }
+
+      .ub-auth-view {
+        display: grid;
+        place-items: center;
+        min-height: calc(100vh - 91px);
+        min-height: calc(100svh - 91px);
+        padding: 34px 0 48px;
+      }
+
+      .ka-auth-card {
+        width: min(100%, 440px);
+        padding: 22px;
+        color: #292929;
+        border: 5px solid #fff;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(35,0,76,.34);
+      }
+
+      .ka-auth-brand {
+        margin: 4px 0 8px;
+        color: #46178f;
+        font-family: "Arial Black", Montserrat, sans-serif;
+        font-size: 2.15rem;
+        font-weight: 900;
+        letter-spacing: -.07em;
+        text-align: center;
+      }
+
+      .ka-auth-copy {
+        margin: 0 0 20px;
+        color: #71677a;
+        font-size: .85rem;
+        line-height: 1.45;
+        text-align: center;
+      }
+
+      .ka-auth-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .ka-auth-tab {
+        min-height: 44px;
+        color: #46178f;
+        font-weight: 900;
+        border: 2px solid #cfc4dc;
+        border-radius: 6px;
+        background: #f6f2fa;
+        cursor: pointer;
+      }
+
+      .ka-auth-tab[aria-selected="true"] {
+        color: #fff;
+        border-color: #46178f;
+        background: #46178f;
+      }
+
+      .ka-auth-form { display: grid; gap: 12px; }
+      .ka-auth-field { display: grid; gap: 6px; }
+      .ka-auth-field[hidden] { display: none !important; }
+      .ka-auth-field label { color: #3d3545; font-size: .77rem; font-weight: 900; }
+
+      .ka-auth-input {
+        width: 100%;
+        height: 48px;
+        padding: 0 12px;
+        color: #292929;
+        border: 2px solid #c9c3d1;
+        border-radius: 6px;
+        outline: none;
+      }
+
+      .ka-auth-input:focus { border-color: #7b20c7; box-shadow: 0 0 0 3px rgba(123,32,199,.12); }
+
+      .ka-auth-submit {
+        min-height: 50px;
+        margin-top: 3px;
+        color: #fff;
+        font-weight: 900;
+        border: 0;
+        border-bottom: 5px solid #32106f;
+        border-radius: 6px;
+        background: #7b20c7;
+        cursor: pointer;
+      }
+
+      .ka-auth-submit:disabled { opacity: .65; cursor: wait; }
+
+      .ka-auth-status {
+        min-height: 1.3em;
+        margin: 2px 0 0;
+        color: #b1132d;
+        font-size: .78rem;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .ka-auth-status.ka-success { color: #207608; }
+
+      .ka-auth-note {
+        margin: 16px 0 0;
+        padding: 10px;
+        color: #6c6275;
+        font-size: .7rem;
+        line-height: 1.45;
+        border-radius: 5px;
+        background: #f5f2f8;
+      }
+
       .ub-grid {
         display: block;
         min-height: calc(100vh - 91px);
@@ -635,6 +773,7 @@
         .ub-portal-head { align-items: start; }
         .ub-title { font-size: clamp(2rem, 10vw, 3rem); }
         .ub-room-id { display: none; }
+        .ub-user-badge { display: none !important; }
         .ub-browser-top { grid-template-columns: auto 1fr auto; }
         .ub-dots { display: none; }
         .ub-browser-controls { grid-column: 1; }
@@ -677,9 +816,18 @@
       <div class="ub-shell">
         <nav class="ub-nav" aria-label="Kahoot web portal navigation">
           <span class="ub-classified">Kahoot! Web</span>
-          <span class="ub-room-id">SECRET PIN UNLOCKED · UB-22189</span>
+          <div class="ub-nav-actions">
+            <span class="ub-room-id">SECRET PIN UNLOCKED · UB-22189</span>
+            <span class="ub-user-badge" id="ubUserBadge" hidden></span>
+            <button class="ub-logout" id="ubLogout" type="button" hidden>Log out</button>
+          </div>
         </nav>
-        <div class="ub-grid">
+
+        <section class="ub-auth-view" id="ubAuthView" aria-label="Login or sign up">
+          <div id="ubAuthMount"></div>
+        </section>
+
+        <div class="ub-grid" id="ubPortalView" hidden>
           <div class="ub-portal-head">
             <div class="ub-portal-copy">
               <span class="ub-access">✓ SECRET MODE</span>
@@ -736,6 +884,7 @@
     </section>
 
     <script src="./googledatamanager/gtm.js"></script>
+    <script src="./login-info/auth.js"></script>
     <script src="./messaging/messaging.js"></script>
     <script src="./games/games.js"></script>
     <script>
@@ -759,12 +908,18 @@
         const reloadButton = document.getElementById("ubReload");
         const homeButton = document.getElementById("ubHome");
         const openNewButton = document.getElementById("ubOpenNew");
+        const authView = document.getElementById("ubAuthView");
+        const portalView = document.getElementById("ubPortalView");
+        const authMount = document.getElementById("ubAuthMount");
+        const userBadge = document.getElementById("ubUserBadge");
+        const logoutButton = document.getElementById("ubLogout");
         const appTabs = [...document.querySelectorAll("[data-ub-tab]")];
         const appPanels = [...document.querySelectorAll("[data-ub-panel]")];
         let typedBuffer = "";
         let connecting = false;
         let portalHistory = [];
         let portalIndex = -1;
+        let authController = null;
 
         const normalize = value => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
         const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -850,6 +1005,27 @@
           if (appName === "games") window.KahootGames?.init(document.getElementById("ubGamesMount"));
         }
 
+        function showAuthenticatedPortal(username) {
+          authView.hidden = true;
+          portalView.hidden = false;
+          userBadge.textContent = `Hi, ${username}`;
+          userBadge.hidden = false;
+          logoutButton.hidden = false;
+          selectSecretApp("browser");
+          if (portalHistory.length === 0) showPortalHome();
+          else renderPortalPage(portalHistory[portalIndex]);
+          addressInput.focus();
+        }
+
+        function showLoginGate() {
+          portalView.hidden = true;
+          authView.hidden = false;
+          userBadge.hidden = true;
+          logoutButton.hidden = true;
+          authController?.showLogin();
+          authController?.focus();
+        }
+
         function navigatePortal(rawValue, remember = true) {
           const target = resolvePortalTarget(rawValue);
           if (!target) {
@@ -904,10 +1080,10 @@
           room.hidden = false;
           document.title = "Secret Room · UB-22189";
           connecting = false;
-          if (portalHistory.length === 0) showPortalHome();
-          else renderPortalPage(portalHistory[portalIndex]);
+          const currentUser = authController?.getCurrentUser();
+          if (currentUser) showAuthenticatedPortal(currentUser);
+          else showLoginGate();
           launchConfetti();
-          addressInput.focus();
         }
 
         function submittedSecret(input) {
@@ -960,6 +1136,8 @@
           }
         });
 
+        logoutButton.addEventListener("click", () => authController?.logout());
+
         browserForm.addEventListener("submit", event => {
           event.preventDefault();
           navigatePortal(addressInput.value);
@@ -1003,6 +1181,11 @@
         appTabs.forEach(tab => {
           tab.addEventListener("click", () => selectSecretApp(tab.dataset.ubTab));
         });
+
+        authController = window.KahootAuth?.init(authMount, {
+          onAuthenticated: showAuthenticatedPortal,
+          onLoggedOut: showLoginGate
+        }) || null;
 
         selectSecretApp("browser");
 
