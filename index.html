@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#46178f" />
+    <meta name="description" content="Join a live Kahoot game with a game PIN." />
+    <title>Join a game of Kahoot!</title>
+    <link rel="preconnect" href="https://assets-cdn.kahoot.it" crossorigin />
+    <link rel="preconnect" href="https://kahoot.it" crossorigin />
+    <link rel="stylesheet" href="./shared-assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="./controller/v2/assets/index-DIBPNbqw.css" />
+
+    <style>
+      .ub-overlay,
+      .ub-room {
+        --ub-cyan: #57e8ff;
+        --ub-green: #4ae38a;
+        --ub-purple: #9c45ff;
+        --ub-gold: #ffd35a;
+        position: fixed;
+        inset: 0;
+        z-index: 2147483000;
+        color: #fff;
+        font-family: Montserrat, "Segoe UI", Arial, sans-serif;
+      }
+
+      .ub-overlay[hidden],
+      .ub-room[hidden] { display: none !important; }
+
+      .ub-overlay {
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 50% 42%, rgba(156,69,255,.24), transparent 34%),
+          #100422;
+      }
+
+      .ub-connect-card {
+        width: min(430px, 100%);
+        text-align: center;
+      }
+
+      .ub-signal {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 30px;
+      }
+
+      .ub-signal::before,
+      .ub-signal::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 2px solid var(--ub-cyan);
+        border-radius: 50%;
+        animation: ub-signal 1.45s ease-out infinite;
+      }
+
+      .ub-signal::after { animation-delay: .48s; }
+
+      .ub-signal-core {
+        position: absolute;
+        inset: 31px;
+        border-radius: 50%;
+        background: var(--ub-cyan);
+        box-shadow: 0 0 36px var(--ub-cyan);
+      }
+
+      @keyframes ub-signal {
+        from { transform: scale(.25); opacity: 1; }
+        to { transform: scale(1.18); opacity: 0; }
+      }
+
+      .ub-kicker {
+        margin: 0 0 10px;
+        color: var(--ub-cyan);
+        font-family: Consolas, monospace;
+        font-size: .74rem;
+        font-weight: 800;
+        letter-spacing: .21em;
+        text-transform: uppercase;
+      }
+
+      .ub-status {
+        min-height: 1.2em;
+        margin: 0;
+        font-size: clamp(2.2rem, 8vw, 3.7rem);
+        font-weight: 900;
+        letter-spacing: -.05em;
+      }
+
+      .ub-progress {
+        height: 7px;
+        margin-top: 34px;
+        overflow: hidden;
+        border-radius: 99px;
+        background: rgba(255,255,255,.13);
+      }
+
+      .ub-progress-bar {
+        width: 10%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--ub-purple), var(--ub-cyan));
+        box-shadow: 0 0 18px rgba(87,232,255,.65);
+        transition: width .8s cubic-bezier(.2,.8,.2,1);
+      }
+
+      .ub-detail {
+        margin: 14px 0 0;
+        color: rgba(255,255,255,.55);
+        font-family: Consolas, monospace;
+        font-size: .76rem;
+      }
+
+      .ub-room {
+        display: block;
+        overflow: auto;
+        background:
+          linear-gradient(rgba(87,232,255,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(87,232,255,.035) 1px, transparent 1px),
+          radial-gradient(circle at 12% 8%, rgba(87,232,255,.13), transparent 30%),
+          radial-gradient(circle at 91% 88%, rgba(156,69,255,.24), transparent 34%),
+          #080d19;
+        background-size: 36px 36px, 36px 36px, auto, auto, auto;
+        animation: ub-room-in .65s ease both;
+      }
+
+      @keyframes ub-room-in {
+        from { opacity: 0; filter: blur(8px); }
+      }
+
+      .ub-shell {
+        width: min(1180px, calc(100% - 40px));
+        min-height: 100%;
+        margin: 0 auto;
+      }
+
+      .ub-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: max(23px, env(safe-area-inset-top)) 0 21px;
+        border-bottom: 1px solid rgba(87,232,255,.19);
+      }
+
+      .ub-classified {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ub-cyan);
+        font-family: Consolas, monospace;
+        font-size: .75rem;
+        font-weight: 800;
+        letter-spacing: .14em;
+      }
+
+      .ub-classified::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--ub-green);
+        box-shadow: 0 0 16px var(--ub-green);
+        animation: ub-blink 1.3s steps(2) infinite;
+      }
+
+      @keyframes ub-blink { 50% { opacity: .25; } }
+
+      .ub-room-id {
+        color: rgba(255,255,255,.5);
+        font-family: Consolas, monospace;
+        font-size: .72rem;
+      }
+
+      .ub-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+        align-items: center;
+        gap: clamp(36px, 7vw, 90px);
+        min-height: calc(100vh - 91px);
+        min-height: calc(100svh - 91px);
+        padding: 50px 0;
+      }
+
+      .ub-access {
+        display: inline-flex;
+        margin-bottom: 19px;
+        padding: 8px 12px;
+        color: #05190f;
+        font-size: .72rem;
+        font-weight: 900;
+        letter-spacing: .12em;
+        border-radius: 99px;
+        background: var(--ub-green);
+        box-shadow: 0 0 30px rgba(74,227,138,.22);
+      }
+
+      .ub-title {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(3.8rem, 9vw, 8.2rem);
+        line-height: .82;
+        letter-spacing: -.075em;
+        text-transform: uppercase;
+      }
+
+      .ub-title span {
+        display: block;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255,255,255,.76);
+      }
+
+      .ub-copy {
+        max-width: 590px;
+        margin: 29px 0 34px;
+        color: rgba(255,255,255,.66);
+        font-size: clamp(1rem, 2vw, 1.16rem);
+        line-height: 1.7;
+      }
+
+      .ub-return {
+        min-height: 46px;
+        padding: 0 18px;
+        color: #fff;
+        font-weight: 800;
+        border: 1px solid rgba(255,255,255,.26);
+        border-radius: 7px;
+        background: rgba(255,255,255,.06);
+        cursor: pointer;
+      }
+
+      .ub-return:hover {
+        border-color: var(--ub-cyan);
+        background: rgba(87,232,255,.08);
+      }
+
+      .ub-mission {
+        position: relative;
+        padding: clamp(25px, 4vw, 38px);
+        overflow: hidden;
+        border: 1px solid rgba(87,232,255,.25);
+        border-radius: 16px;
+        background: linear-gradient(145deg, rgba(18,30,51,.94), rgba(8,14,27,.97));
+        box-shadow: 0 30px 90px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.05);
+      }
+
+      .ub-mission::after {
+        content: "22189";
+        position: absolute;
+        right: -15px;
+        bottom: -30px;
+        color: rgba(87,232,255,.035);
+        font-size: 8rem;
+        font-weight: 900;
+        letter-spacing: -.08em;
+        pointer-events: none;
+      }
+
+      .ub-mission-label {
+        margin: 0 0 10px;
+        color: var(--ub-gold);
+        font-family: Consolas, monospace;
+        font-size: .72rem;
+        font-weight: 800;
+        letter-spacing: .14em;
+      }
+
+      .ub-mission h2 { margin: 0; font-size: 1.7rem; }
+
+      .ub-redacted {
+        display: grid;
+        gap: 11px;
+        margin: 30px 0;
+      }
+
+      .ub-redacted span {
+        display: block;
+        height: 11px;
+        border-radius: 2px;
+        background: rgba(255,255,255,.14);
+      }
+
+      .ub-redacted span:nth-child(1) { width: 92%; }
+      .ub-redacted span:nth-child(2) { width: 76%; }
+      .ub-redacted span:nth-child(3) { width: 84%; }
+
+      .ub-reveal {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-height: 50px;
+        color: #07151a;
+        font-weight: 900;
+        border: 0;
+        border-radius: 7px;
+        background: var(--ub-cyan);
+        box-shadow: 0 8px 26px rgba(87,232,255,.18);
+        cursor: pointer;
+      }
+
+      .ub-message {
+        display: none;
+        position: relative;
+        z-index: 1;
+        margin: 26px 0 0;
+        padding: 18px;
+        color: #dffbff;
+        font-family: Consolas, monospace;
+        font-size: .9rem;
+        line-height: 1.7;
+        border-left: 3px solid var(--ub-cyan);
+        background: rgba(87,232,255,.07);
+      }
+
+      .ub-message.ub-show { display: block; animation: ub-reveal .5s ease both; }
+      @keyframes ub-reveal { from { opacity: 0; transform: translateY(8px); } }
+
+      .ub-confetti {
+        position: fixed;
+        z-index: 2147483640;
+        top: -18px;
+        width: 9px;
+        height: 17px;
+        border-radius: 2px;
+        pointer-events: none;
+        animation: ub-fall var(--ub-fall-time) linear forwards;
+      }
+
+      @keyframes ub-fall {
+        to { transform: translate3d(var(--ub-drift), 110vh, 0) rotate(760deg); opacity: .75; }
+      }
+
+      @media (max-width: 760px) {
+        .ub-grid { grid-template-columns: 1fr; padding-top: 42px; }
+        .ub-title { font-size: clamp(3.45rem, 20vw, 6rem); }
+        .ub-room-id { display: none; }
+        .ub-mission { margin-bottom: 30px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ub-overlay *, .ub-room *, .ub-overlay *::before, .ub-overlay *::after,
+        .ub-room *::before, .ub-room *::after {
+          animation-duration: .001ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to join a Kahoot game.</noscript>
+    <div id="root"></div>
+
+    <section class="ub-overlay" id="ubConnection" aria-live="polite" aria-label="Connecting to secret room" hidden>
+      <div class="ub-connect-card">
+        <div class="ub-signal" aria-hidden="true"><span class="ub-signal-core"></span></div>
+        <p class="ub-kicker">Encrypted channel UB-22189</p>
+        <h1 class="ub-status" id="ubStatus">Loading…</h1>
+        <div class="ub-progress" aria-hidden="true"><div class="ub-progress-bar" id="ubProgress"></div></div>
+        <p class="ub-detail" id="ubDetail">VERIFYING ACCESS KEY</p>
+      </div>
+    </section>
+
+    <section class="ub-room" id="ubRoom" aria-labelledby="ubRoomTitle" hidden>
+      <div class="ub-shell">
+        <nav class="ub-nav" aria-label="Secret room navigation">
+          <span class="ub-classified">TOP SECRET // CHANNEL OPEN</span>
+          <span class="ub-room-id">ROOM ID: UB-22189 · ENCRYPTION: ACTIVE</span>
+        </nav>
+        <div class="ub-grid">
+          <div>
+            <span class="ub-access">✓ ACCESS GRANTED</span>
+            <h1 class="ub-title" id="ubRoomTitle">You found <span>the secret.</span></h1>
+            <p class="ub-copy">Welcome, Agent. Very few people know this room exists. Your access key opened the hidden Underground channel.</p>
+            <button class="ub-return" id="ubReturn" type="button">← Return to Kahoot</button>
+          </div>
+          <article class="ub-mission">
+            <p class="ub-mission-label">CLASSIFIED // MISSION 22189</p>
+            <h2>Your secret transmission</h2>
+            <div class="ub-redacted" id="ubRedacted" aria-hidden="true"><span></span><span></span><span></span></div>
+            <button class="ub-reveal" id="ubReveal" type="button">Decrypt message</button>
+            <p class="ub-message" id="ubMessage">TRANSMISSION DECRYPTED:<br><br>You discovered the hidden room. Keep the access code safe—and share it only with someone worthy of the Underground.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <script src="./googledatamanager/gtm.js"></script>
+    <script>
+      (() => {
+        "use strict";
+
+        const SECRET_CODE = "ub 22189";
+        const root = document.getElementById("root");
+        const connection = document.getElementById("ubConnection");
+        const room = document.getElementById("ubRoom");
+        const status = document.getElementById("ubStatus");
+        const detail = document.getElementById("ubDetail");
+        const progress = document.getElementById("ubProgress");
+        const returnButton = document.getElementById("ubReturn");
+        const revealButton = document.getElementById("ubReveal");
+        const message = document.getElementById("ubMessage");
+        const redacted = document.getElementById("ubRedacted");
+        let typedBuffer = "";
+        let connecting = false;
+
+        const normalize = value => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
+        const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+        const isPinInput = element => element instanceof HTMLInputElement && Boolean(element.closest("main"));
+
+        function preparePinInput() {
+          const pinInput = document.querySelector("main input");
+          if (!pinInput || pinInput.dataset.ubSecretReady === "true") return;
+          pinInput.dataset.ubSecretReady = "true";
+          pinInput.type = "text";
+          pinInput.inputMode = "text";
+          pinInput.removeAttribute("pattern");
+          pinInput.autocapitalize = "off";
+          pinInput.spellcheck = false;
+        }
+
+        function launchConfetti() {
+          const colors = ["#57e8ff", "#4ae38a", "#ffd35a", "#9c45ff", "#ffffff"];
+          for (let index = 0; index < 56; index += 1) {
+            const piece = document.createElement("i");
+            piece.className = "ub-confetti";
+            piece.style.left = `${Math.random() * 100}vw`;
+            piece.style.background = colors[index % colors.length];
+            piece.style.setProperty("--ub-drift", `${(Math.random() - .5) * 220}px`);
+            piece.style.setProperty("--ub-fall-time", `${2.4 + Math.random() * 2.8}s`);
+            piece.style.animationDelay = `${Math.random() * .45}s`;
+            document.body.appendChild(piece);
+            setTimeout(() => piece.remove(), 5800);
+          }
+        }
+
+        async function openSecretRoom() {
+          if (connecting) return;
+          connecting = true;
+          status.textContent = "Loading…";
+          detail.textContent = "VERIFYING ACCESS KEY";
+          progress.style.width = "12%";
+          connection.hidden = false;
+
+          await wait(250);
+          progress.style.width = "46%";
+          await wait(950);
+
+          status.textContent = "Connecting…";
+          detail.textContent = "OPENING ENCRYPTED CHANNEL";
+          progress.style.width = "78%";
+          await wait(1150);
+
+          detail.textContent = "ACCESS GRANTED";
+          progress.style.width = "100%";
+          await wait(550);
+
+          root.style.display = "none";
+          connection.hidden = true;
+          room.hidden = false;
+          document.title = "Secret Room · UB-22189";
+          connecting = false;
+          launchConfetti();
+          returnButton.focus();
+        }
+
+        function submittedSecret(input) {
+          return normalize(input && input.value) === SECRET_CODE || normalize(typedBuffer) === SECRET_CODE;
+        }
+
+        document.addEventListener("keydown", event => {
+          if (!isPinInput(event.target)) return;
+
+          if (event.key === "Enter" && submittedSecret(event.target)) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            openSecretRoom();
+            return;
+          }
+
+          if (event.key === "Backspace") typedBuffer = typedBuffer.slice(0, -1);
+          else if (event.key.length === 1) typedBuffer += event.key;
+        }, true);
+
+        document.addEventListener("input", event => {
+          if (!isPinInput(event.target)) return;
+          if (/[a-z]/i.test(event.target.value)) {
+            typedBuffer = event.target.value;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+
+        document.addEventListener("submit", event => {
+          const pinInput = event.target.querySelector("input") || document.querySelector("main input");
+          if (!submittedSecret(pinInput)) return;
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          openSecretRoom();
+        }, true);
+
+        returnButton.addEventListener("click", () => {
+          room.hidden = true;
+          root.style.display = "";
+          typedBuffer = "";
+          progress.style.width = "10%";
+          message.classList.remove("ub-show");
+          redacted.hidden = false;
+          revealButton.textContent = "Decrypt message";
+          revealButton.disabled = false;
+          document.title = "Enter Game PIN - Kahoot!";
+          const pinInput = document.querySelector("main input");
+          if (pinInput) {
+            pinInput.value = "";
+            pinInput.focus();
+          }
+        });
+
+        revealButton.addEventListener("click", () => {
+          message.classList.add("ub-show");
+          redacted.hidden = true;
+          revealButton.textContent = "Message decrypted ✓";
+          revealButton.disabled = true;
+        });
+
+        new MutationObserver(preparePinInput).observe(root, { childList: true, subtree: true });
+        preparePinInput();
+      })();
+    </script>
+    <script type="module" src="./controller/v2/assets/index-WEllrWnp.js"></script>
+  </body>
+</html>
