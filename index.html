@@ -395,6 +395,225 @@
         background: #f4f1fa;
       }
 
+      .ub-app-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .ub-app-tab {
+        min-height: 52px;
+        color: #fff;
+        font-weight: 900;
+        border: 0;
+        border-bottom: 5px solid rgba(0,0,0,.23);
+        border-radius: 8px;
+        background: #1368ce;
+        cursor: pointer;
+        transition: transform .14s, filter .14s;
+      }
+
+      .ub-app-tab:nth-child(2) { background: #e21b3c; }
+      .ub-app-tab:nth-child(3) { background: #26890c; }
+      .ub-app-tab:hover { transform: translateY(-2px); filter: brightness(1.08); }
+      .ub-app-tab[aria-selected="true"] { outline: 4px solid #fff; outline-offset: 1px; }
+
+      .ub-feature-panel[hidden] { display: none !important; }
+
+      .ub-feature-card {
+        min-height: 560px;
+        overflow: hidden;
+        color: #292929;
+        border: 5px solid #fff;
+        border-radius: 14px;
+        background: #f7f5fa;
+        box-shadow: 0 24px 70px rgba(35,0,76,.32);
+      }
+
+      .km-shell {
+        display: grid;
+        grid-template-rows: auto minmax(330px, 1fr) auto;
+        min-height: 560px;
+      }
+
+      .km-header,
+      .kg-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 18px 20px;
+        color: #fff;
+        background: #e21b3c;
+      }
+
+      .kg-header { background: #26890c; }
+      .km-header h2, .kg-header h2 { margin: 0; font-size: 1.35rem; }
+      .km-header p, .kg-header p { margin: 3px 0 0; font-size: .76rem; opacity: .82; }
+
+      .km-clear {
+        min-height: 36px;
+        padding: 0 12px;
+        color: #fff;
+        font-weight: 800;
+        border: 2px solid rgba(255,255,255,.65);
+        border-radius: 6px;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .km-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 58vh;
+        min-height: 330px;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f7f5fa;
+      }
+
+      .km-empty { margin: auto; color: #6d6477; text-align: center; }
+      .km-message { align-self: flex-start; max-width: min(78%, 620px); }
+      .km-message.km-own { align-self: flex-end; }
+
+      .km-bubble {
+        padding: 11px 14px;
+        color: #fff;
+        line-height: 1.45;
+        border-radius: 5px 14px 14px 14px;
+        background: #1368ce;
+        box-shadow: 0 3px 0 rgba(0,0,0,.15);
+        overflow-wrap: anywhere;
+      }
+
+      .km-own .km-bubble { border-radius: 14px 5px 14px 14px; background: #26890c; }
+      .km-meta { margin: 5px 4px 0; color: #71677b; font-size: .68rem; }
+      .km-own .km-meta { text-align: right; }
+
+      .km-form {
+        display: grid;
+        grid-template-columns: minmax(100px, .28fr) minmax(180px, 1fr) auto;
+        gap: 9px;
+        padding: 14px;
+        border-top: 1px solid #ddd7e5;
+        background: #fff;
+      }
+
+      .km-input {
+        min-width: 0;
+        height: 45px;
+        padding: 0 12px;
+        border: 2px solid #c9c3d1;
+        border-radius: 6px;
+        outline: 0;
+      }
+
+      .km-input:focus { border-color: #7b20c7; box-shadow: 0 0 0 3px rgba(123,32,199,.12); }
+
+      .km-send {
+        min-width: 92px;
+        color: #fff;
+        font-weight: 900;
+        border: 0;
+        border-bottom: 4px solid #32106f;
+        border-radius: 6px;
+        background: #7b20c7;
+        cursor: pointer;
+      }
+
+      .kg-shell { min-height: 560px; }
+
+      .kg-content { padding: 20px; }
+
+      .kg-menu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .kg-game-card {
+        min-height: 230px;
+        padding: 24px;
+        color: #fff;
+        text-align: left;
+        border: 0;
+        border-bottom: 7px solid rgba(0,0,0,.22);
+        border-radius: 10px;
+        background: #1368ce;
+        cursor: pointer;
+      }
+
+      .kg-game-card:nth-child(2) { background: #e21b3c; }
+      .kg-game-card:hover { transform: translateY(-3px); filter: brightness(1.06); }
+      .kg-icon { display: block; margin-bottom: 22px; font-size: 2.5rem; }
+      .kg-game-card strong { display: block; font-size: 1.55rem; }
+      .kg-game-card small { display: block; margin-top: 8px; font-size: .86rem; line-height: 1.45; opacity: .86; }
+
+      .kg-stage[hidden], .kg-menu[hidden] { display: none !important; }
+      .kg-stage { text-align: center; }
+
+      .kg-stage-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .kg-back {
+        min-height: 40px;
+        padding: 0 13px;
+        color: #32106f;
+        font-weight: 900;
+        border: 2px solid #32106f;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .kg-score { color: #32106f; font-size: 1.1rem; font-weight: 900; }
+      .kg-prompt { margin: 18px 0 24px; color: #32106f; font-size: clamp(1.7rem, 5vw, 3rem); font-weight: 900; }
+
+      .kg-answers {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .kg-answer {
+        min-height: 105px;
+        color: #fff;
+        font-size: 1.15rem;
+        font-weight: 900;
+        border: 0;
+        border-bottom: 6px solid rgba(0,0,0,.2);
+        border-radius: 7px;
+        cursor: pointer;
+      }
+
+      .kg-answer[data-color="red"] { background: #e21b3c; }
+      .kg-answer[data-color="blue"] { background: #1368ce; }
+      .kg-answer[data-color="yellow"] { background: #d89e00; }
+      .kg-answer[data-color="green"] { background: #26890c; }
+
+      .kg-tap {
+        width: min(310px, 78vw);
+        aspect-ratio: 1;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 900;
+        border: 0;
+        border-bottom: 12px solid #a5122d;
+        border-radius: 50%;
+        background: #e21b3c;
+        box-shadow: 0 16px 40px rgba(226,27,60,.26);
+        cursor: pointer;
+      }
+
+      .kg-tap:active { transform: translateY(7px); border-bottom-width: 5px; }
+
       .ub-confetti {
         position: fixed;
         z-index: 2147483640;
@@ -424,6 +643,11 @@
         .ub-open-new::after { content: "↗"; font-size: 1rem; }
         .ub-browser-note { align-items: flex-start; flex-direction: column; }
         .ub-frame { height: 58vh; min-height: 420px; }
+        .ub-app-tab { min-height: 46px; font-size: .8rem; }
+        .km-form { grid-template-columns: 1fr auto; }
+        .km-form .km-name { grid-column: 1 / -1; }
+        .kg-menu { grid-template-columns: 1fr; }
+        .kg-game-card { min-height: 170px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -465,7 +689,13 @@
             <button class="ub-return" id="ubReturn" type="button">← Return to Kahoot</button>
           </div>
 
-          <section class="ub-browser" aria-label="Web portal">
+          <nav class="ub-app-tabs" aria-label="Secret apps" role="tablist">
+            <button class="ub-app-tab" type="button" role="tab" aria-selected="true" aria-controls="ubBrowserPanel" data-ub-tab="browser">◆ Browser</button>
+            <button class="ub-app-tab" type="button" role="tab" aria-selected="false" aria-controls="ubMessagingPanel" data-ub-tab="messaging">● Messaging</button>
+            <button class="ub-app-tab" type="button" role="tab" aria-selected="false" aria-controls="ubGamesPanel" data-ub-tab="games">▲ Games</button>
+          </nav>
+
+          <section class="ub-browser ub-feature-panel" id="ubBrowserPanel" role="tabpanel" data-ub-panel="browser" aria-label="Web portal">
             <div class="ub-browser-top">
               <div class="ub-dots" aria-hidden="true"><i></i><i></i><i></i></div>
               <div class="ub-browser-controls">
@@ -493,11 +723,21 @@
 
             <iframe class="ub-frame" id="ubFrame" title="Web content" sandbox="allow-forms allow-scripts allow-popups" referrerpolicy="no-referrer"></iframe>
           </section>
+
+          <section class="ub-feature-card ub-feature-panel" id="ubMessagingPanel" role="tabpanel" data-ub-panel="messaging" aria-label="Messaging" hidden>
+            <div id="ubMessagingMount"></div>
+          </section>
+
+          <section class="ub-feature-card ub-feature-panel" id="ubGamesPanel" role="tabpanel" data-ub-panel="games" aria-label="Games" hidden>
+            <div id="ubGamesMount"></div>
+          </section>
         </div>
       </div>
     </section>
 
     <script src="./googledatamanager/gtm.js"></script>
+    <script src="./messaging/messaging.js"></script>
+    <script src="./games/games.js"></script>
     <script>
       (() => {
         "use strict";
@@ -519,6 +759,8 @@
         const reloadButton = document.getElementById("ubReload");
         const homeButton = document.getElementById("ubHome");
         const openNewButton = document.getElementById("ubOpenNew");
+        const appTabs = [...document.querySelectorAll("[data-ub-tab]")];
+        const appPanels = [...document.querySelectorAll("[data-ub-panel]")];
         let typedBuffer = "";
         let connecting = false;
         let portalHistory = [];
@@ -598,6 +840,14 @@
           const page = { kind: "home" };
           if (remember) rememberPortalPage(page);
           renderPortalPage(page);
+        }
+
+        function selectSecretApp(appName) {
+          appTabs.forEach(tab => tab.setAttribute("aria-selected", String(tab.dataset.ubTab === appName)));
+          appPanels.forEach(panel => { panel.hidden = panel.dataset.ubPanel !== appName; });
+
+          if (appName === "messaging") window.KahootMessaging?.init(document.getElementById("ubMessagingMount"));
+          if (appName === "games") window.KahootGames?.init(document.getElementById("ubGamesMount"));
         }
 
         function navigatePortal(rawValue, remember = true) {
@@ -749,6 +999,12 @@
         document.querySelectorAll("[data-ub-url]").forEach(button => {
           button.addEventListener("click", () => navigatePortal(button.dataset.ubUrl));
         });
+
+        appTabs.forEach(tab => {
+          tab.addEventListener("click", () => selectSecretApp(tab.dataset.ubTab));
+        });
+
+        selectSecretApp("browser");
 
         new MutationObserver(preparePinInput).observe(root, { childList: true, subtree: true });
         preparePinInput();

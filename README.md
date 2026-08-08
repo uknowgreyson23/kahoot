@@ -11,6 +11,8 @@ index.html
 controller/
 googledatamanager/
 shared-assets/
+messaging/
+games/
 ```
 
 Do not rename the folders because `index.html` uses their existing paths.
@@ -27,7 +29,11 @@ Other PINs continue through the original Kahoot frontend.
 
 ## Web portal behavior
 
-The portal includes an address/search bar, back, forward, reload, home, quick links, an embedded viewer, and an **Open new tab** fallback.
+The secret area now has three apps:
+
+- **Browser:** address/search bar, navigation controls, quick links, embedded viewer, and an **Open new tab** fallback.
+- **Messaging:** same-device messages saved in local browser storage and synchronized between tabs on that device.
+- **Games:** playable **Color Quiz** and **Tap Rush** mini-games.
 
 This is a static web portal, not a network proxy. GitHub Pages cannot relay traffic or bypass network restrictions. Websites may also block iframe embedding; use **Open new tab** for those sites.
 
